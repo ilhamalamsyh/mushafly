@@ -3,6 +3,7 @@ export const API_BASE =
 
 export const ROUTES = {
   home: "/",
+  imsakiyah: "/imsakiyah",
   surahDetail: (id: number | string) => `/surah/${id}`,
 };
 

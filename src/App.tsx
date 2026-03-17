@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./views/HomePage";
 import SurahDetailPage from "./views/SurahDetailPage";
+import ImsakiyahPage from "./views/ImsakiyahPage";
 import PageWrapper from "./components/PageWrapper";
 import MediaPlayer from "./components/MediaPlayer";
 
@@ -23,6 +24,14 @@ const App = () => {
           element={
             <PageWrapper>
               <SurahDetailPage />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/imsakiyah"
+          element={
+            <PageWrapper>
+              <ImsakiyahPage />
             </PageWrapper>
           }
         />

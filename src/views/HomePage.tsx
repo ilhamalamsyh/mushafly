@@ -50,7 +50,7 @@ const HomePage = () => {
             Built with smooth navigation, qari preferences, transliteration
             toggles, and persistent bookmarks.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <button
               type="button"
               onClick={() =>
@@ -59,7 +59,7 @@ const HomePage = () => {
                   block: "start",
                 })
               }
-              className="rounded-xl bg-black dark:bg-white px-4 py-2 text-sm font-semibold text-white dark:text-black"
+              className="w-full rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-black sm:w-auto"
             >
               Browse Surah
             </button>

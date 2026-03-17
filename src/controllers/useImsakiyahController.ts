@@ -1,0 +1,201 @@
+import { useCallback, useEffect, useRef } from "react";
+import {
+  getJadwal,
+  getKabkota,
+  getProvinsi,
+} from "../services/imsakiyah.service";
+import { useImsakiyahStore } from "../stores/imsakiyah.store";
+
+export const useImsakiyahController = () => {
+  const {
+    provinsiList,
+    kabkotaList,
+    selectedProvinsi,
+    selectedKabkota,
+    jadwal,
+    isLoadingProvinsi,
+    isLoadingKabkota,
+    isLoadingJadwal,
+    error,
+    activeTab,
+    setProvinsiList,
+    setKabkotaList,
+    setSelectedProvinsi,
+    setSelectedKabkota,
+    setJadwal,
+    setIsLoadingProvinsi,
+    setIsLoadingKabkota,
+    setIsLoadingJadwal,
+    setError,
+    setActiveTab,
+    resetKabkotaAndJadwal,
+  } = useImsakiyahStore();
+
+  const lastActionRef = useRef<"provinsi" | "kabkota" | "jadwal" | null>(null);
+  const kabkotaRequestIdRef = useRef(0);
+  const jadwalRequestIdRef = useRef(0);
+
+  const loadProvinsi = useCallback(async () => {
+    setIsLoadingProvinsi(true);
+    setError(null);
+    lastActionRef.current = "provinsi";
+
+    try {
+      const result = await getProvinsi();
+      setProvinsiList(result.data);
+      return { status: "success" as const };
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Gagal memuat daftar provinsi.",
+      );
+      return { status: "error" as const };
+    } finally {
+      setIsLoadingProvinsi(false);
+    }
+  }, [setError, setIsLoadingProvinsi, setProvinsiList]);
+
+  const loadKabkota = useCallback(
+    async (provinsi: string) => {
+      const requestId = ++kabkotaRequestIdRef.current;
+      setIsLoadingKabkota(true);
+      setError(null);
+      lastActionRef.current = "kabkota";
+
+      try {
+        const result = await getKabkota(provinsi);
+
+        if (
+          requestId !== kabkotaRequestIdRef.current ||
+          useImsakiyahStore.getState().selectedProvinsi !== provinsi
+        ) {
+          return { status: "stale" as const };
+        }
+
+        setKabkotaList(result.data);
+        return { status: "success" as const };
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Gagal memuat daftar kabupaten/kota.",
+        );
+        return { status: "error" as const };
+      } finally {
+        if (requestId === kabkotaRequestIdRef.current) {
+          setIsLoadingKabkota(false);
+        }
+      }
+    },
+    [setError, setIsLoadingKabkota, setKabkotaList],
+  );
+
+  const loadJadwal = useCallback(
+    async (provinsi: string, kabkota: string) => {
+      const requestId = ++jadwalRequestIdRef.current;
+      setIsLoadingJadwal(true);
+      setError(null);
+      lastActionRef.current = "jadwal";
+
+      try {
+        const result = await getJadwal(provinsi, kabkota);
+
+        const state = useImsakiyahStore.getState();
+        if (
+          requestId !== jadwalRequestIdRef.current ||
+          state.selectedProvinsi !== provinsi ||
+          state.selectedKabkota !== kabkota
+        ) {
+          return { status: "stale" as const };
+        }
+
+        setJadwal(result.data);
+        return { status: "success" as const };
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Gagal memuat jadwal imsakiyah.",
+        );
+        return { status: "error" as const };
+      } finally {
+        if (requestId === jadwalRequestIdRef.current) {
+          setIsLoadingJadwal(false);
+        }
+      }
+    },
+    [setError, setIsLoadingJadwal, setJadwal],
+  );
+
+  const onProvinsiChange = useCallback(
+    async (provinsi: string) => {
+      setSelectedProvinsi(provinsi);
+      resetKabkotaAndJadwal();
+
+      if (!provinsi) {
+        return;
+      }
+
+      await loadKabkota(provinsi);
+    },
+    [loadKabkota, resetKabkotaAndJadwal, setSelectedProvinsi],
+  );
+
+  const onKabkotaChange = useCallback(
+    async (kabkota: string) => {
+      setSelectedKabkota(kabkota);
+      setJadwal(null);
+      setError(null);
+
+      const currentProvinsi = useImsakiyahStore.getState().selectedProvinsi;
+      if (!currentProvinsi || !kabkota) {
+        return;
+      }
+
+      await loadJadwal(currentProvinsi, kabkota);
+    },
+    [loadJadwal, setError, setJadwal, setSelectedKabkota],
+  );
+
+  const retryLastAction = useCallback(async () => {
+    const state = useImsakiyahStore.getState();
+
+    if (lastActionRef.current === "kabkota" && state.selectedProvinsi) {
+      await loadKabkota(state.selectedProvinsi);
+      return;
+    }
+
+    if (
+      lastActionRef.current === "jadwal" &&
+      state.selectedProvinsi &&
+      state.selectedKabkota
+    ) {
+      await loadJadwal(state.selectedProvinsi, state.selectedKabkota);
+      return;
+    }
+
+    await loadProvinsi();
+  }, [loadJadwal, loadKabkota, loadProvinsi]);
+
+  useEffect(() => {
+    if (provinsiList.length > 0) {
+      return;
+    }
+
+    void loadProvinsi();
+  }, [loadProvinsi, provinsiList.length]);
+
+  return {
+    provinsiList,
+    kabkotaList,
+    selectedProvinsi,
+    selectedKabkota,
+    jadwal,
+    isLoadingProvinsi,
+    isLoadingKabkota,
+    isLoadingJadwal,
+    error,
+    activeTab,
+    setActiveTab,
+    onProvinsiChange,
+    onKabkotaChange,
+    retryLastAction,
+  };
+};
