@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./views/HomePage";
 import SurahDetailPage from "./views/SurahDetailPage";
 import ImsakiyahPage from "./views/ImsakiyahPage";
+import JadwalShalatPage from "./views/JadwalShalatPage";
 import PageWrapper from "./components/PageWrapper";
 import MediaPlayer from "./components/MediaPlayer";
 
@@ -32,6 +33,14 @@ const App = () => {
           element={
             <PageWrapper>
               <ImsakiyahPage />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/shalat"
+          element={
+            <PageWrapper>
+              <JadwalShalatPage />
             </PageWrapper>
           }
         />

@@ -11,6 +11,7 @@ const Navbar = () => {
   const location = useLocation();
   const isHomeActive = location.pathname === ROUTES.home;
   const isImsakiyahActive = location.pathname === ROUTES.imsakiyah;
+  const isShalatActive = location.pathname === ROUTES.shalat;
 
   useEffect(() => {
     setIsDrawerOpen(false);
@@ -45,6 +46,12 @@ const Navbar = () => {
             className="rounded-xl bg-amber-600 px-3 py-1 text-xs font-semibold text-white hover:bg-amber-700"
           >
             Imsakiyah
+          </Link>
+          <Link
+            to={ROUTES.shalat}
+            className="rounded-xl bg-cyan-600 px-3 py-1 text-xs font-semibold text-white hover:bg-cyan-700"
+          >
+            Shalat
           </Link>
           <div className="rounded-xl bg-black/10 dark:bg-white/10 px-3 py-1 text-xs font-medium text-black dark:text-white">
             Bookmarks: {bookmarks}
@@ -109,6 +116,16 @@ const Navbar = () => {
                 }`}
               >
                 Jadwal Imsakiyah
+              </Link>
+              <Link
+                to={ROUTES.shalat}
+                className={`block rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  isShalatActive
+                    ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                    : "text-black hover:bg-[#f6ebd5] dark:text-white dark:hover:bg-[#1a2a48]"
+                }`}
+              >
+                Jadwal Shalat
               </Link>
             </div>
 
