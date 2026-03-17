@@ -22,7 +22,9 @@ const SurahCard = ({ surah }: SurahCardProps) => {
             <h3 className="mt-1 text-lg font-semibold text-black dark:text-white">
               {surah.namaLatin}
             </h3>
-            <p className="text-sm text-black/70 dark:text-white/70">{surah.arti}</p>
+            <p className="text-sm text-black/70 dark:text-white/70">
+              {surah.arti}
+            </p>
           </div>
           <div className="rounded-lg bg-sea/15 px-3 py-1 text-sm font-semibold text-sea">
             {surah.nomor}
@@ -32,7 +34,9 @@ const SurahCard = ({ surah }: SurahCardProps) => {
           <p className="arabic-text text-2xl" dir="rtl" lang="ar">
             {surah.nama}
           </p>
-          <p className="text-xs text-black/65 dark:text-white/65">{surah.jumlahAyat} ayat</p>
+          <p className="text-xs text-black/65 dark:text-white/65">
+            {surah.jumlahAyat} ayat
+          </p>
         </div>
       </GlassCard>
     </Link>

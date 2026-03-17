@@ -84,7 +84,9 @@ const HomePage = () => {
 
       <section ref={listRef} className="mt-10">
         <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <h2 className="text-2xl font-semibold text-black dark:text-white">Surah List</h2>
+          <h2 className="text-2xl font-semibold text-black dark:text-white">
+            Surah List
+          </h2>
           <div className="w-full md:w-96">
             <SearchBar value={query} onChange={setQuery} />
           </div>

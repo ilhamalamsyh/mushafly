@@ -31,9 +31,16 @@ export default function AyahCard({
   showTranslation = true,
 }: AyahCardProps) {
   const audioSrc = ayah.audio?.[qari] ?? undefined;
-  const { currentTime, duration, isPlaying: audioIsPlaying, meta, pause } = useAudioStore();
+  const {
+    currentTime,
+    duration,
+    isPlaying: audioIsPlaying,
+    meta,
+    pause,
+  } = useAudioStore();
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
-  const isCurrentAyahPlaying = meta?.ayahId === ayah.nomorAyat && meta?.surahId === surahId;
+  const isCurrentAyahPlaying =
+    meta?.ayahId === ayah.nomorAyat && meta?.surahId === surahId;
   const showPauseIcon = isCurrentAyahPlaying && audioIsPlaying;
 
   const formatTime = (seconds: number) => {
@@ -72,11 +79,19 @@ export default function AyahCard({
               title={showPauseIcon ? "Pause" : "Play"}
             >
               {showPauseIcon ? (
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                 </svg>
               ) : (
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M8 5v14l11-7z" />
                 </svg>
               )}
@@ -130,12 +145,16 @@ export default function AyahCard({
 
           {/* Transliteration with 8px more spacing (52px total from buttons) */}
           {showTransliteration ? (
-            <p className="mt-12 text-sm italic text-black/70 dark:text-white/70">{ayah.teksLatin}</p>
+            <p className="mt-12 text-sm italic text-black/70 dark:text-white/70">
+              {ayah.teksLatin}
+            </p>
           ) : null}
 
           {/* Translation with 8px more spacing (52px total from buttons) */}
           {showTranslation ? (
-            <p className="mt-12 text-sm text-black/90 dark:text-white/90">{ayah.teksIndonesia}</p>
+            <p className="mt-12 text-sm text-black/90 dark:text-white/90">
+              {ayah.teksIndonesia}
+            </p>
           ) : null}
         </div>
       </div>

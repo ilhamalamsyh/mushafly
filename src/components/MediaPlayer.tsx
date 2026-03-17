@@ -32,7 +32,9 @@ const MediaPlayer = () => {
       <div className="glass-card flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="text-sm">
-            <div className="font-semibold text-black dark:text-white">{meta?.title ?? "Audio"}</div>
+            <div className="font-semibold text-black dark:text-white">
+              {meta?.title ?? "Audio"}
+            </div>
             <div className="text-xs text-black/60 dark:text-white/60">
               {meta?.surahId ? selectedQariName : ""}
             </div>
