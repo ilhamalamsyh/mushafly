@@ -5,6 +5,7 @@ export const ROUTES = {
   home: "/",
   imsakiyah: "/imsakiyah",
   shalat: "/shalat",
+  doa: "/doa",
   surahDetail: (id: number | string) => `/surah/${id}`,
 };
 

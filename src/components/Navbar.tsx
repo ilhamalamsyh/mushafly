@@ -12,6 +12,9 @@ const Navbar = () => {
   const isHomeActive = location.pathname === ROUTES.home;
   const isImsakiyahActive = location.pathname === ROUTES.imsakiyah;
   const isShalatActive = location.pathname === ROUTES.shalat;
+  const isDoaActive =
+    location.pathname === ROUTES.doa ||
+    location.pathname.startsWith(`${ROUTES.doa}/`);
 
   useEffect(() => {
     setIsDrawerOpen(false);
@@ -52,6 +55,12 @@ const Navbar = () => {
             className="rounded-xl bg-cyan-600 px-3 py-1 text-xs font-semibold text-white hover:bg-cyan-700"
           >
             Shalat
+          </Link>
+          <Link
+            to={ROUTES.doa}
+            className="rounded-xl bg-emerald-600 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-700"
+          >
+            Kumpulan Doa
           </Link>
           <div className="rounded-xl bg-black/10 dark:bg-white/10 px-3 py-1 text-xs font-medium text-black dark:text-white">
             Bookmarks: {bookmarks}
@@ -126,6 +135,16 @@ const Navbar = () => {
                 }`}
               >
                 Jadwal Shalat
+              </Link>
+              <Link
+                to={ROUTES.doa}
+                className={`block rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                  isDoaActive
+                    ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                    : "text-black hover:bg-[#f6ebd5] dark:text-white dark:hover:bg-[#1a2a48]"
+                }`}
+              >
+                Kumpulan Doa
               </Link>
             </div>
 
