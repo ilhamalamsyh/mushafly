@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   safelist: ["font-arabic", "font-ui"],
   theme: {

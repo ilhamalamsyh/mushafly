@@ -43,10 +43,10 @@ const HomePage = () => {
           <p className="text-xs uppercase tracking-[0.25em] text-sea">
             Digital Al-Quran
           </p>
-          <h1 className="mt-3 max-w-2xl text-4xl font-semibold leading-tight text-ink md:text-5xl">
+          <h1 className="mt-3 max-w-2xl text-4xl font-semibold leading-tight text-black dark:text-white md:text-5xl">
             Read, listen, and bookmark ayat in one calm space.
           </h1>
-          <p className="mt-4 max-w-xl text-sm text-ink/75 md:text-base">
+          <p className="mt-4 max-w-xl text-sm text-black/75 dark:text-white/75 md:text-base">
             Built with smooth navigation, qari preferences, transliteration
             toggles, and persistent bookmarks.
           </p>
@@ -59,11 +59,11 @@ const HomePage = () => {
                   block: "start",
                 })
               }
-              className="rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white"
+              className="rounded-xl bg-black dark:bg-white px-4 py-2 text-sm font-semibold text-white dark:text-black"
             >
               Browse Surah
             </button>
-            <span className="rounded-xl bg-white/70 px-4 py-2 text-sm text-ink">
+            <span className="rounded-xl bg-white/70 dark:bg-white/10 px-4 py-2 text-sm text-black dark:text-white">
               114 Surah available
             </span>
           </div>
@@ -84,7 +84,7 @@ const HomePage = () => {
 
       <section ref={listRef} className="mt-10">
         <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <h2 className="text-2xl font-semibold text-ink">Surah List</h2>
+          <h2 className="text-2xl font-semibold text-black dark:text-white">Surah List</h2>
           <div className="w-full md:w-96">
             <SearchBar value={query} onChange={setQuery} />
           </div>

@@ -5,7 +5,7 @@ interface ErrorViewProps {
 
 const ErrorView = ({ message, onRetry }: ErrorViewProps) => {
   return (
-    <div className="glass-card border-coral/50 p-4 text-sm text-ink">
+    <div className="glass-card border-coral/50 p-4 text-sm text-black dark:text-white">
       <p className="font-semibold text-coral">Something went wrong</p>
       <p className="mt-1">{message}</p>
       {onRetry ? (

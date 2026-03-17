@@ -1,7 +1,7 @@
 const Spinner = () => {
   return (
     <div
-      className="flex items-center gap-3 text-sm text-ink/80"
+      className="flex items-center gap-3 text-sm text-black/80 dark:text-white/80"
       role="status"
       aria-live="polite"
     >

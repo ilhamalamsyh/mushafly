@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="flex w-full items-center justify-between">
           <Link
             to={ROUTES.home}
-            className="text-lg font-semibold tracking-tight text-ink"
+            className="text-lg font-semibold tracking-tight text-black dark:text-white"
           >
             Musahfly
           </Link>
@@ -29,7 +29,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 sm:flex">
-          <div className="rounded-xl bg-ink/10 px-3 py-1 text-xs font-medium text-ink">
+          <div className="rounded-xl bg-black/10 dark:bg-white/10 px-3 py-1 text-xs font-medium text-black dark:text-white">
             Bookmarks: {bookmarks}
           </div>
           <button
