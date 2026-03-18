@@ -1,0 +1,10 @@
+{
+  "buildCommand": "bun run build",
+  "installCommand": "bun install",
+  "framework": "vite",
+  "env": {
+    "VITE_API_BASE": {
+      "value": "/api"
+    }
+  }
+}
