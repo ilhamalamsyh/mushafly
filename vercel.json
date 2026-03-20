@@ -3,6 +3,14 @@
   "installCommand": "bun install",
   "framework": "vite",
   "env": {
+    "VITE_API_BASE": {
+      "value": "/api"
+    },
+    "VITE_API_BASE_V1": {
+      "value": "https://equran.id/"
+    }
+  },
+  "buildEnv": {
     "VITE_API_BASE": "/api",
     "VITE_API_BASE_V1": "https://equran.id/"
   }
