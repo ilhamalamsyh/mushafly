@@ -2,5 +2,11 @@
   "buildCommand": "VITE_API_BASE=/api VITE_API_BASE_V1=https://equran.id/ bun run build",
   "installCommand": "bun install",
   "framework": "vite",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(?!api|assets|_next|_static|(?:.*\\.(?:acme|json|webmanifest)))(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
