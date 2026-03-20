@@ -7,7 +7,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "OPTIONS") {
     res.status(200);
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.end();
     return;
@@ -22,9 +22,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const upstreamUrl = `${TARGET}${path}${queryString}`;
 
   try {
+    const headers: HeadersInit = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
     const response = await fetch(upstreamUrl, {
-      method: "GET",
-      headers: { Accept: "application/json" },
+      method: req.method,
+      headers,
+      body: req.method !== "GET" && req.method !== "HEAD" ? req.body : undefined,
     });
 
     const data = await response.json();
