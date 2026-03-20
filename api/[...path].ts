@@ -13,20 +13,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  // Get path from URL - Vercel passes the full path including /api
-  const url = new URL(req.url ?? "", "http://localhost");
-  let path = url.pathname;
-
-  // Remove /api prefix if present
-  if (path.startsWith("/api")) {
-    path = path.replace(/^\/api/, "");
-  }
-
-  const queryString = url.search;
+  // Get path from URL
+  const path = new URL(req.url ?? "", "http://localhost").pathname.replace(
+    /^\/api/,
+    "",
+  );
+  const queryString = new URL(req.url ?? "", "http://localhost").search;
   const upstreamUrl = `${TARGET}${path}${queryString}`;
 
   // Debug logging
-  console.log("Incoming request URL:", req.url);
+  console.log("Incoming request:", req.url);
   console.log("Parsed path:", path);
   console.log("Upstream URL:", upstreamUrl);
   console.log("Method:", req.method);
