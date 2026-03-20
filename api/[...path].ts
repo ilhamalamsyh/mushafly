@@ -21,19 +21,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const queryString = new URL(req.url ?? "", "http://localhost").search;
   const upstreamUrl = `${TARGET}${path}${queryString}`;
 
+  // Debug logging
+  console.log("Incoming request:", req.url);
+  console.log("Parsed path:", path);
+  console.log("Upstream URL:", upstreamUrl);
+  console.log("Method:", req.method);
+
   try {
     const headers: HeadersInit = {
       Accept: "application/json",
       "Content-Type": "application/json",
     };
 
+    const body = req.method !== "GET" && req.method !== "HEAD" && req.body 
+      ? (typeof req.body === "string" ? req.body : JSON.stringify(req.body))
+      : undefined;
+
     const response = await fetch(upstreamUrl, {
       method: req.method,
       headers,
-      body: req.method !== "GET" && req.method !== "HEAD" ? req.body : undefined,
+      body,
     });
 
     const data = await response.json();
+    console.log("Response status:", response.status);
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "public, max-age=3600");
     res.status(response.status).json(data);
